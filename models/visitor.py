@@ -13,6 +13,10 @@ class Visitor(db.Model):
 # Input by User Fields:
     age        = db.Column(db.String(100), nullable=False)
     count     = db.Column(db.String(100), nullable=False)
+    
+    interactions  = db.relationship('Interaction', backref='visitor')
+    answers       = db.relationship('Answer', backref='visitor')
+    questionnaire = db.relationship('Questionnaire', backref='visitor')
 
 # How to serialize SqlAlchemy PostgreSQL Query to JSON => https://stackoverflow.com/a/46180522
     def toDict(self):
