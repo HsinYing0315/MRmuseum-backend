@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from ..models.area import Area
+from ...models.exhibit.area import Area
 
 def list_all_areas():
     areas = Area.query.all()
