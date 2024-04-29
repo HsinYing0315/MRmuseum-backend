@@ -11,6 +11,15 @@ app.register_blueprint(time_blueprint)
 app.register_blueprint(exhibit_blueprint)
 app.register_blueprint(interaction_blueprint)
 app.register_blueprint(questionnaire_blueprint)
+
+@app.route('/', methods=['GET'])
+def index():
+    return 'Hello, World!'
+
+@app.route('/AI', methods=['GET'])
+def ask_AI():
+    
+    return ''
     
 if __name__ == '__main__':
     app.run()
