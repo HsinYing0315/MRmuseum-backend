@@ -6,11 +6,11 @@ from .controllers.interaction import interaction_blueprint
 from .controllers.questionnaire import questionnaire_blueprint
 
 app = create_app('development')
-app.register_blueprint(area_blueprint)
-app.register_blueprint(time_blueprint)
-app.register_blueprint(exhibit_blueprint)
-app.register_blueprint(interaction_blueprint)
-app.register_blueprint(questionnaire_blueprint)
+app.register_blueprint(area_blueprint, url_prefix='/area')
+app.register_blueprint(time_blueprint, url_prefix='/time')
+app.register_blueprint(exhibit_blueprint, url_prefix='/exhibit')
+app.register_blueprint(interaction_blueprint, url_prefix='/interaction')
+app.register_blueprint(questionnaire_blueprint, url_prefix='/questionnaire')
 
 @app.route('/', methods=['GET'])
 def index():
