@@ -9,7 +9,7 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
     Swagger(app)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://melody:nccu306@localhost:8080/graduation'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://melody:nccu306@postgres:5432/graduation'
 
     db.init_app(app)
     with app.app_context():
