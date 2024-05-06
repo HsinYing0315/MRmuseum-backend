@@ -1,7 +1,7 @@
 from flask import jsonify, request
 import uuid
-from ..models.questionnaire import Questionnaire
-from .. import db
+from models.questionnaire import Questionnaire
+from __init__ import db
 
 def create_Questionnaire():
     request_form = request.form.to_dict()

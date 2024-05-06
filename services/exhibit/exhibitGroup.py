@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from ...models.exhibit.exhibitGroup import ExhibitGroup
+from models.exhibit.exhibitGroup import ExhibitGroup
 
 def list_all_exhibitGroups():
     exhibitGroups = ExhibitGroup.query.all()

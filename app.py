@@ -1,11 +1,11 @@
-from . import create_app
-from .controllers.exhibit.area import area_blueprint
-from .controllers.exhibit.time import time_blueprint
-from .controllers.exhibit.exhibit import exhibit_blueprint
-from .controllers.interaction import interaction_blueprint
-from .controllers.questionnaire import questionnaire_blueprint
+from __init__ import create_app
+from controllers.exhibit.area import area_blueprint
+from controllers.exhibit.time import time_blueprint
+from controllers.exhibit.exhibit import exhibit_blueprint
+from controllers.interaction import interaction_blueprint
+from controllers.questionnaire import questionnaire_blueprint
 
-app = create_app('development')
+app = create_app()
 app.register_blueprint(area_blueprint, url_prefix='/area')
 app.register_blueprint(time_blueprint, url_prefix='/time')
 app.register_blueprint(exhibit_blueprint, url_prefix='/exhibit')
@@ -22,4 +22,4 @@ def ask_AI():
     return ''
     
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=3000, debug=True)

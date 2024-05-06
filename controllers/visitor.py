@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flasgger.utils import swag_from
-from ..services.visitor import create_visitor 
+from services.visitor import create_visitor 
 
 visitor_blueprint = Blueprint('visitor_blueprint', __name__)
     

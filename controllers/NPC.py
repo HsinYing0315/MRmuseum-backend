@@ -1,5 +1,5 @@
 from flask import Blueprint
-from ..services.NPC import meet_NPC, interact_NPC 
+from services.NPC import meet_NPC, interact_NPC 
 
 NPC_blueprint = Blueprint('NPC_blueprint', __name__)
    

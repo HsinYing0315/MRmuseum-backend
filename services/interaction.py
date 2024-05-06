@@ -1,8 +1,8 @@
 from flask import request, jsonify
 import uuid
 
-from .. import db
-from ..models.interaction import Interaction
+from __init__ import db
+from models.interaction import Interaction
 
 def create_interaction():
     request_form = request.form.to_dict()

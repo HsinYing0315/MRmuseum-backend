@@ -1,5 +1,5 @@
 from flask import jsonify
-from ...models.test.answer import Answer
+from models.test.answer import Answer
 
 def list_all_answers():
     answers = Answer.query.all()

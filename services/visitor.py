@@ -1,8 +1,8 @@
 from flask import request, jsonify
 import uuid
 
-from .. import db
-from ..models.visitor import Visitor
+from __init__ import db
+from models.visitor import Visitor
 
 def create_visitor():
     request_form = request.form.to_dict()

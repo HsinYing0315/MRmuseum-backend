@@ -1,5 +1,5 @@
 from flask import jsonify
-from ...models.test.test import Test
+from models.test.test import Test
 
 def list_all_tests():
     tests = Test.query.all()

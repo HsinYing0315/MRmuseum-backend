@@ -1,8 +1,8 @@
 from flask import request, jsonify
 import uuid
 
-from .. import db
-from ..models.NPC import NPC
+from __init__ import db
+from models.NPC import NPC
 
 def meet_NPC(exhibitID):
     response = NPC.query.get(exhibitID=exhibitID).toDict()

@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from ...models.exhibit.exhibit import Exhibit
+from models.exhibit.exhibit import Exhibit
 def list_all_exhibits_by_time(time_id):
     exhibits = Exhibit.query.filter_by(timeID=time_id).all()
     if (exhibits is None):

@@ -2,14 +2,14 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flasgger import Swagger
 
-from .config import config
+# from config import config
 
 db = SQLAlchemy()
 
-def create_app(config_mode):
+def create_app():
     app = Flask(__name__)
     Swagger(app)
-    app.config.from_object(config[config_mode])
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://melody:nccu306@localhost:8080/graduation'
 
     db.init_app(app)
     with app.app_context():

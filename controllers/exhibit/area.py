@@ -1,5 +1,5 @@
 from flask import Blueprint
-from ...services.exhibit.area import get_area
+from services.exhibit.area import get_area
 
 area_blueprint = Blueprint('area_blueprint', __name__)
 

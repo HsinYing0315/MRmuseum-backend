@@ -1,5 +1,5 @@
 from flask import Blueprint
-from ..services.questionnaire import create_Questionnaire
+from services.questionnaire import create_Questionnaire
 
 questionnaire_blueprint = Blueprint('questionnaire_blueprint', __name__)
 

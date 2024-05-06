@@ -1,5 +1,5 @@
 from flask import Blueprint
-from ...services.test.test import list_all_tests, get_test
+from services.test.test import list_all_tests, get_test
 
 test_blueprint = Blueprint('test_blueprint', __name__)
 

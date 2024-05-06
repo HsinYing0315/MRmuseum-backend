@@ -1,5 +1,5 @@
 from flask import Blueprint
-from ...services.exhibit.time import get_time
+from services.exhibit.time import get_time
 
 time_blueprint = Blueprint('time_blueprint', __name__)
 

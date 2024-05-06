@@ -1,5 +1,5 @@
 from flask import Blueprint
-from ...services.exhibit.exhibit import get_exhibit
+from services.exhibit.exhibit import get_exhibit
 
 exhibit_blueprint = Blueprint('exhibit_blueprint', __name__)
 

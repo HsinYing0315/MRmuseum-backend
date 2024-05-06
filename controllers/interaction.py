@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from ..services.interaction import create_interaction 
+from services.interaction import create_interaction 
 
 interaction_blueprint = Blueprint('interaction_blueprint', __name__)
    
