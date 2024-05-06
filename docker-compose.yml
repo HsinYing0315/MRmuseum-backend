@@ -1,19 +1,21 @@
 version: '3.8'
+volumes:
+  postgres_data:
 services:
   postgres:
     image: postgres:latest
     ports:
-      - 8080:5432
-    volumes:
-      - ./data:/var/lib/postgresql/data
+      - 5432:5432
     environment:
       - POSTGRES_USER=melody
       - POSTGRES_PASSWORD=nccu306
       - POSTGRES_DB=graduation
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
   
-  backend-services:
+  backend:
     build: .
     ports:
-      - 3000:5000
+      - 3000:3000
     depends_on:
       - postgres

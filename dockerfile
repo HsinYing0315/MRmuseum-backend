@@ -1,5 +1,6 @@
-FROM python:3.9.13
+FROM python:3.9-slim
 WORKDIR /
-ADD . /
-RUN pip install -r requirements.txt
-CMD flask run --host=0.0.0.0
+COPY . .
+RUN pip install --no-cache-dir -r requirements.txt
+EXPOSE 3000
+CMD ["python", "app.py"]
