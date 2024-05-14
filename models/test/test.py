@@ -13,7 +13,7 @@ class Test(db.Model):
 # Input by User Fields:
     question = db.Column(db.String(100), nullable=False)
     
-    answers = db.relationship('Answer', backref='test')
+    answers = db.relationship('Answer', back_populates='test')
 
 # How to serialize SqlAlchemy PostgreSQL Query to JSON => https://stackoverflow.com/a/46180522
     def toDict(self):

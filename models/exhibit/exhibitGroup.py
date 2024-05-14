@@ -12,7 +12,7 @@ class ExhibitGroup(db.Model):
 
 # Input by User Fields:
     timeID       = db.Column(db.String(50), db.ForeignKey("time.id"), nullable=False)
-    exhibits     = db.relationship('Exhibit', backref='exhibitGroup')
+    exhibits     = db.relationship('Exhibit', back_populates='exhibitGroup')
 
 # How to serialize SqlAlchemy PostgreSQL Query to JSON => https://stackoverflow.com/a/46180522
     def toDict(self):

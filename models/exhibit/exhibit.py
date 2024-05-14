@@ -17,7 +17,7 @@ class Exhibit(db.Model):
     timeID       = db.Column(db.String(50), db.ForeignKey("time.id"), nullable=True)
     exhibitGroupID = db.Column(db.String(50), db.ForeignKey("exhibit_group.id"), nullable=True)
     
-    interactions = db.relationship('Interaction', backref='exhibit')
+    interactions = db.relationship('Interaction', back_populates='exhibit')
 
 # How to serialize SqlAlchemy PostgreSQL Query to JSON => https://stackoverflow.com/a/46180522
     def toDict(self):

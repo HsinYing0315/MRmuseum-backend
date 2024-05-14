@@ -15,8 +15,8 @@ class Time(db.Model):
     location     = db.Column(db.String(100), nullable=False)
     introduction = db.Column(db.String(100), nullable=True)
     areaID       = db.Column(db.String(50), db.ForeignKey("area.id"), nullable=False)
-    exhibitGroups = db.relationship('ExhibitGroup', backref='time')
-    exhibits     = db.relationship('Exhibit', backref='time')
+    exhibitGroups = db.relationship('ExhibitGroup', back_populates='time')
+    exhibits     = db.relationship('Exhibit', back_populates='time')
 
 # How to serialize SqlAlchemy PostgreSQL Query to JSON => https://stackoverflow.com/a/46180522
     def toDict(self):
