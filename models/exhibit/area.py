@@ -14,7 +14,7 @@ class Area(db.Model):
     name        = db.Column(db.String(100), nullable=False)
     location     = db.Column(db.String(100), nullable=False)
     introduction = db.Column(db.String(100), nullable=True)
-    times        = db.relationship('Time', back_populates='area')
+    times        = db.relationship('Time', backref='area')
 # How to serialize SqlAlchemy PostgreSQL Query to JSON => https://stackoverflow.com/a/46180522
     def toDict(self):
         return { c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs }
