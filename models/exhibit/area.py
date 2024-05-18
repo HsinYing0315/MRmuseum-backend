@@ -1,6 +1,8 @@
 from sqlalchemy import inspect
 from datetime import datetime
 
+from models.exhibit.time import Time
+
 from __init__ import db # from __init__.py
 
 # SQL Datatype Objects => https://docs.sqlalchemy.org/en/14/core/types.html
@@ -14,7 +16,8 @@ class Area(db.Model):
     name        = db.Column(db.String(100), nullable=False)
     location     = db.Column(db.String(100), nullable=False)
     introduction = db.Column(db.String(100), nullable=True)
-    times        = db.relationship('Time', backref='area')
+
+    times        = db.relationship(Time.__name__, backref='area')
 # How to serialize SqlAlchemy PostgreSQL Query to JSON => https://stackoverflow.com/a/46180522
     def toDict(self):
         return { c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs }

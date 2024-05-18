@@ -1,6 +1,9 @@
 from sqlalchemy import inspect
 from datetime import datetime
 
+from models.interaction import Interaction
+from models.test.answer import Answer
+from models.questionnaire import Questionnaire
 from __init__ import db # from __init__.py
 
 # SQL Datatype Objects => https://docs.sqlalchemy.org/en/14/core/types.html
@@ -14,9 +17,9 @@ class Visitor(db.Model):
     age        = db.Column(db.String(100), nullable=False)
     count     = db.Column(db.String(100), nullable=False)
     
-    interactions  = db.relationship('Interaction', backref='visitor')
-    answers       = db.relationship('Answer', backref='visitor')
-    questionnaire = db.relationship('Questionnaire', backref='visitor')
+    interactions  = db.relationship(Interaction.__name__, backref='visitor')
+    answers       = db.relationship(Answer.__name__, backref='visitor')
+    questionnaire = db.relationship(Questionnaire.__name__, backref='visitor')
 
 # How to serialize SqlAlchemy PostgreSQL Query to JSON => https://stackoverflow.com/a/46180522
     def toDict(self):

@@ -1,6 +1,7 @@
 from sqlalchemy import inspect
 from datetime import datetime
 
+from models.interaction import Interaction
 from __init__ import db # from __init__.py
 
 # SQL Datatype Objects => https://docs.sqlalchemy.org/en/14/core/types.html
@@ -17,7 +18,7 @@ class Exhibit(db.Model):
     timeID       = db.Column(db.String(50), db.ForeignKey("time.id"), nullable=True)
     exhibitGroupID = db.Column(db.String(50), db.ForeignKey("exhibit_group.id"), nullable=True)
     
-    interactions = db.relationship('Interaction', backref='exhibit')
+    interactions = db.relationship(Interaction.__name__, backref='exhibit')
 
 # How to serialize SqlAlchemy PostgreSQL Query to JSON => https://stackoverflow.com/a/46180522
     def toDict(self):
