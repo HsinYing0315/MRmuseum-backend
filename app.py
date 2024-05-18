@@ -1,3 +1,6 @@
+import requests
+from flask import request, jsonify
+
 from __init__ import create_app
 from controllers.exhibit.area import area_blueprint
 from controllers.exhibit.time import time_blueprint
@@ -16,10 +19,18 @@ app.register_blueprint(questionnaire_blueprint, url_prefix='/questionnaire')
 def index():
     return 'Hello, World!'
 
+@app.route('/translate', methods=['GET'])
+def translate():
+    data = request.json
+    response = requests.post('http://140.119.19.21:5001/api/translate', json=data)
+
+    return response.text
+
 @app.route('/AI', methods=['GET'])
 def ask_AI():
-    
-    return ''
+    response = requests.post('http://140.119.19.21:5001/api/generate')
+
+    return response
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000, debug=True)
