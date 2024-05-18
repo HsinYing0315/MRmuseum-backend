@@ -1,5 +1,5 @@
 import requests
-from flask import request, jsonify
+from flask import request
 
 from __init__ import create_app
 from controllers.exhibit.area import area_blueprint
