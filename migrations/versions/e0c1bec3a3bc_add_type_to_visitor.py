@@ -47,7 +47,8 @@ def upgrade():
         batch_op.alter_column('age',
                existing_type=sa.VARCHAR(length=100),
                type_=sa.Integer(),
-               existing_nullable=False)
+               existing_nullable=False,
+               postgresql_using='age::integer')
         batch_op.create_unique_constraint(None, ['id'])
 
     # ### end Alembic commands ###
