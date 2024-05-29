@@ -5,13 +5,14 @@ from __init__ import db
 from models.visitor import Visitor
 
 def create_visitor():
-    request_form = request.form.to_dict()
+    data = request.json
 
     id = str(uuid.uuid4())
     new_visitor = Visitor(
                           id             = id,
-                          age          = request_form['age'],
-                          count       = request_form['count'],
+                          age          = data.get('age'),
+                          count       = data.get('count'),
+                          type        = data.get('type'),
                           )
     db.session.add(new_visitor)
     db.session.commit()

@@ -14,8 +14,9 @@ class Visitor(db.Model):
     updated      = db.Column(db.DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)    # The Date of the Instance Update => Changed with Every Update
 
 # Input by User Fields:
-    age        = db.Column(db.String(100), nullable=False)
+    age        = db.Column(db.Integer, nullable=False)
     count     = db.Column(db.String(100), nullable=False)
+    type      = db.Column(db.String(100), nullable=False)
     
     interactions  = db.relationship(Interaction.__name__, backref='visitor')
     answers       = db.relationship(Answer.__name__, backref='visitor')
