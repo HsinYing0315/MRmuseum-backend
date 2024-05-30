@@ -4,17 +4,16 @@ from models.questionnaire import Questionnaire
 from __init__ import db
 
 def create_Questionnaire():
-    request_form = request.form.to_dict()
-
+    data = request.json
     id = str(uuid.uuid4())
     new_interaction = Questionnaire(
                           id             = id,
-                          interactionScore    = request_form['interactionScore'],
-                          educationScore      = request_form['educationScore'],
-                          entertainmentScore  = request_form['entertainmentScore'],
-                          overallScore        = request_form['overallScore'],
-                          willVisitAgain      = request_form['willVisitAgain'],
-                          visitorID       = request_form['visitorID'],
+                          interactionScore    = data['interactionScore'],
+                          educationScore      = data['educationScore'],
+                          entertainmentScore  = data['entertainmentScore'],
+                          overallScore        = data['overallScore'],
+                          willVisitAgain      = data['willVisitAgain'],
+                          visitorID       = data['visitorID'],
                           )
     db.session.add(new_interaction)
     db.session.commit()
