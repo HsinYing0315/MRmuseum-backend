@@ -27,7 +27,7 @@ def translate():
 
     return response.json()
 
-@app.route('/AI', methods=['GET'])
+@app.route('/AI', methods=['POST'])
 def ask_AI():
     data = request.json
     if ('-' in data['lang']):
@@ -38,7 +38,8 @@ def ask_AI():
         'lang': data['lang']
     })
     interaction = jsonify({
-        'question': data['query'],
+        'type': 'question',
+        'content': data['query'],
         'visitorID': data['visitorID'],
         'exhibitID': data['exhibitID']
     })
