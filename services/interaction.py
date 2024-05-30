@@ -4,15 +4,14 @@ import uuid
 from __init__ import db
 from models.interaction import Interaction
 
-def create_interaction():
-    request_form = request.form.to_dict()
-
+def create_interaction(interaction):
+    
     id = str(uuid.uuid4())
     new_interaction = Interaction(
                           id             = id,
-                          question        = request_form['question'],
-                          visitorID       = request_form['visitorID'],
-                          exhibitID       = request_form['exhibitID'],
+                          question        = interaction['question'],
+                          visitorID       = interaction['visitorID'],
+                          exhibitID       = interaction['exhibitID'],
                           )
     db.session.add(new_interaction)
     db.session.commit()
