@@ -31,6 +31,9 @@ def translate():
 @app.route('/AI', methods=['GET'])
 def ask_AI():
     data = request.json
+    if ('-' in data['lang']):
+        data['lang'] = data['lang'].replace('-', '_')
+        
     response = requests.post('http://140.119.19.21:5001/api/generate', json=data)
 
     return response.json()
