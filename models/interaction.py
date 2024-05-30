@@ -12,7 +12,7 @@ class Interaction(db.Model):
 
 # Input by User Fields:
     type            = db.Column(db.String(100), nullable=False)
-    content        = db.Column(db.String(100), nullable=False)
+    content        = db.Column(db.VARCHAR(100), nullable=False)
     visitorID       = db.Column(db.String(50), db.ForeignKey("visitor.id"), nullable=False)
     exhibitID       = db.Column(db.String(50), db.ForeignKey("exhibit.id"), nullable=False)
 
