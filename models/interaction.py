@@ -11,7 +11,8 @@ class Interaction(db.Model):
     updated      = db.Column(db.DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)    # The Date of the Instance Update => Changed with Every Update
 
 # Input by User Fields:
-    question        = db.Column(db.String(100), nullable=False)
+    type            = db.Column(db.String(100), nullable=False)
+    content        = db.Column(db.String(100), nullable=False)
     visitorID       = db.Column(db.String(50), db.ForeignKey("visitor.id"), nullable=False)
     exhibitID       = db.Column(db.String(50), db.ForeignKey("exhibit.id"), nullable=False)
 

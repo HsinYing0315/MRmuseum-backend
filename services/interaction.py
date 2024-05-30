@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import jsonify
 import uuid
 
 from __init__ import db
@@ -9,7 +9,8 @@ def create_interaction(interaction):
     id = str(uuid.uuid4())
     new_interaction = Interaction(
                           id             = id,
-                          question        = interaction['question'],
+                          type            = interaction['type'],
+                          content        = interaction['question'],
                           visitorID       = interaction['visitorID'],
                           exhibitID       = interaction['exhibitID'],
                           )
