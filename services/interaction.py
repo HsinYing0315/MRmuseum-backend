@@ -10,7 +10,7 @@ def create_interaction(interaction):
     new_interaction = Interaction(
                           id             = id,
                           type            = interaction['type'],
-                          content        = interaction['question'],
+                          content        = interaction['content'],
                           visitorID       = interaction['visitorID'],
                           exhibitID       = interaction['exhibitID'],
                           )

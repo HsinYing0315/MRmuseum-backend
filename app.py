@@ -46,9 +46,9 @@ def ask_AI():
         'exhibitID': data['exhibitID']
     })
         
-    response = requests.post('http://140.119.19.21:5001/api/generate', json=query)
-    create_interaction(interaction)
-
+    response = requests.post('http://140.119.19.21:5001/api/generate', json=query.json)
+    create_interaction(interaction.json)
+    
     return response.json()
     
 if __name__ == '__main__':
