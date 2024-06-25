@@ -20,5 +20,4 @@ def create_visitor(visitor: VisitorSchema):
     session.add(new_visitor)
     session.commit()
 
-    response = session.query(Visitor).get(id).toDict()
-    return JSONResponse(content=response)
+    return JSONResponse(content={"id": id})
