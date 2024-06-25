@@ -1,8 +1,7 @@
-Flask
+FastAPI
+uvicorn
+pydantic
 SQLAlchemy
-Flask-SQLAlchemy
-Flask-Migrate
 psycopg2-binary
-flasgger
 python-dotenv
 requests
