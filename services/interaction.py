@@ -26,7 +26,8 @@ def get_interaction_count(visitorID):
 
 def get_interaction_duration(visitorID):
     interactions = session.query(Interaction).filter_by(visitorID=visitorID, type='duration').all()
-    if (interactions is None):
+    
+    if (len(interactions) is 0):
         return 0
     total = 0
     for interaction in interactions:
