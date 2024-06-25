@@ -1,26 +1,26 @@
-from sqlalchemy import inspect
+from sqlalchemy import Column, String, DateTime, Integer, relationship, inspect
 from datetime import datetime
 
 from models.interaction import Interaction
 from models.test.answer import Answer
 from models.questionnaire import Questionnaire
-from __init__ import db # from __init__.py
+from database import Base
 
 # SQL Datatype Objects => https://docs.sqlalchemy.org/en/14/core/types.html
-class Visitor(db.Model):
+class Visitor(Base):
 # Auto Generated Fields:
-    id           = db.Column(db.String(50), primary_key=True, nullable=False, unique=True)
-    created      = db.Column(db.DateTime(timezone=True), default=datetime.now)                           # The Date of the Instance Creation => Created one Time when Instantiation
-    updated      = db.Column(db.DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)    # The Date of the Instance Update => Changed with Every Update
+    id           = Column(String(50), primary_key=True, nullable=False, unique=True)
+    created      = Column(DateTime(timezone=True), default=datetime.now)                           # The Date of the Instance Creation => Created one Time when Instantiation
+    updated      = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)    # The Date of the Instance Update => Changed with Every Update
 
 # Input by User Fields:
-    age        = db.Column(db.Integer, nullable=False)
-    count     = db.Column(db.String(100), nullable=False)
-    type      = db.Column(db.String(100), nullable=False)
+    age        = Column(Integer, nullable=False)
+    count     = Column(String(100), nullable=False)
+    type      = Column(String(100), nullable=False)
     
-    interactions  = db.relationship(Interaction.__name__, backref='visitor')
-    answers       = db.relationship(Answer.__name__, backref='visitor')
-    questionnaire = db.relationship(Questionnaire.__name__, backref='visitor')
+    interactions  = relationship(Interaction.__name__, backref='visitor')
+    answers       = relationship(Answer.__name__, backref='visitor')
+    questionnaire = relationship(Questionnaire.__name__, backref='visitor')
 
 # How to serialize SqlAlchemy PostgreSQL Query to JSON => https://stackoverflow.com/a/46180522
     def toDict(self):
