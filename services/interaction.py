@@ -1,7 +1,7 @@
-from flask import jsonify
+from fastapi.responses import JSONResponse
 import uuid
 
-from __init__ import db
+from database import session
 from models.interaction import Interaction
 
 def create_interaction(interaction):
@@ -14,19 +14,19 @@ def create_interaction(interaction):
                           visitorID       = interaction['visitorID'],
                           exhibitID       = interaction['exhibitID'],
                           )
-    db.session.add(new_interaction)
-    db.session.commit()
+    session.add(new_interaction)
+    session.commit()
 
-    response = Interaction.query.get(id).toDict()
-    return jsonify(response)
+    return JSONResponse(content="interaction recorded")
 
 def get_interaction_count(visitorID):
-    interactions = Interaction.query.filter_by(visitorID=visitorID).all()
+    interactions = session.query(Interaction).filter_by(visitorID=visitorID).all()
     return len(interactions)
 
 def get_interaction_duration(visitorID):
-    interactions = Interaction.query.filter_by(visitorID=visitorID, type='duration').all()
-    if (interactions is None):
+    interactions = session.query(Interaction).filter_by(visitorID=visitorID, type='duration').all()
+    
+    if (len(interactions) == 0):
         return 0
     total = 0
     for interaction in interactions:

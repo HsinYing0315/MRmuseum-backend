@@ -1,55 +1,67 @@
 import requests
-from flask import request, jsonify
+import uvicorn
+from pydantic import BaseModel
+from fastapi.responses import JSONResponse
 
 from __init__ import create_app
 from services.interaction import create_interaction
-from controllers.visitor import visitor_blueprint
-from controllers.exhibit.area import area_blueprint
-from controllers.exhibit.time import time_blueprint
-from controllers.exhibit.exhibit import exhibit_blueprint
-from controllers.interaction import interaction_blueprint
-from controllers.questionnaire import questionnaire_blueprint
+from controllers.visitor import visitor_router
+from controllers.exhibit.area import area_router
+from controllers.exhibit.time import time_router
+from controllers.exhibit.exhibit import exhibit_router
+from controllers.interaction import interaction_router
+from controllers.questionnaire import questionnaire_router
 
 app = create_app()
-app.register_blueprint(visitor_blueprint, url_prefix='/visitor')
-app.register_blueprint(area_blueprint, url_prefix='/area')
-app.register_blueprint(time_blueprint, url_prefix='/time')
-app.register_blueprint(exhibit_blueprint, url_prefix='/exhibit')
-app.register_blueprint(interaction_blueprint, url_prefix='/interaction')
-app.register_blueprint(questionnaire_blueprint, url_prefix='/questionnaire')
+app.include_router(visitor_router)
+app.include_router(area_router)
+app.include_router(time_router)
+app.include_router(exhibit_router)
+app.include_router(interaction_router)
+app.include_router(questionnaire_router)
 
-@app.route('/', methods=['GET'])
+@app.get('/')
 def index():
-    return 'Hello, World!'
+    return JSONResponse(content='Hello, World!')
 
-@app.route('/translate', methods=['GET'])
-def translate():
-    data = request.json
-    response = requests.post('http://140.119.19.21:5001/api/translate', json=data)
+class TranslateRequest(BaseModel):
+    query: str
+    lang: str
+@app.post('/translate')
+def translate(translateRequest: TranslateRequest):
+    request = {
+        'text': translateRequest.query,
+        'target_language': translateRequest.lang
+    }
+    response = requests.post('http://140.119.19.21:5001/api/translate', json=request)
 
-    return response.json()
+    return JSONResponse(content=response.json())
 
-@app.route('/AI', methods=['POST'])
-def ask_AI():
-    data = request.json
-    if ('-' in data['lang']):
-        data['lang'] = data['lang'].replace('-', '_')
+class GenerateRequest(BaseModel):
+    query: str
+    lang: str
+    visitorID: str
+    exhibitID: str
+@app.post('/AI')
+def ask_AI(generateRequest: GenerateRequest):
+    if ('-' in generateRequest.lang):
+        generateRequest.lang = generateRequest.lang.replace('-', '_')
         
-    query = jsonify({
-        'query': data['query'],
-        'lang': data['lang']
-    })
-    interaction = jsonify({
+    query = {
+        'query': generateRequest.query,
+        'lang': generateRequest.lang
+    }
+    interaction = {
         'type': 'question',
-        'content': data['query'],
-        'visitorID': data['visitorID'],
-        'exhibitID': data['exhibitID']
-    })
+        'content': generateRequest.query,
+        'visitorID': generateRequest.visitorID,
+        'exhibitID': generateRequest.exhibitID
+    }
         
-    response = requests.post('http://140.119.19.21:5001/api/generate', json=query.json)
-    create_interaction(interaction.json)
+    response = requests.post('http://140.119.19.21:5001/api/generate', json=query)
+    create_interaction(interaction)
     
-    return response.json().get('response')
+    return JSONResponse(content=response.json().get('response'))
     
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3000, debug=True)
+    uvicorn.run(app, host="0.0.0.0", port=8000, debug=True)

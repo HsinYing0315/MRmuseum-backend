@@ -1,7 +1,6 @@
 from flask import request, jsonify
 import uuid
 
-from __init__ import db
 from models.NPC import NPC
 
 def meet_NPC(exhibitID):

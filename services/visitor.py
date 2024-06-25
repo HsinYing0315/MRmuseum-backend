@@ -1,21 +1,24 @@
-from flask import request, jsonify
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 import uuid
 
-from __init__ import db
+from database import session
 from models.visitor import Visitor
 
-def create_visitor():
-    data = request.json
-
+class VisitorSchema(BaseModel):
+    age: int
+    count: str
+    type: str
+def create_visitor(visitor: VisitorSchema):
     id = str(uuid.uuid4())
     new_visitor = Visitor(
                           id             = id,
-                          age          = data.get('age'),
-                          count       = data.get('count'),
-                          type        = data.get('type'),
+                          age          = visitor.age,
+                          count       = visitor.count,
+                          type        = visitor.type,
                           )
-    db.session.add(new_visitor)
-    db.session.commit()
+    session.add(new_visitor)
+    session.commit()
 
-    response = Visitor.query.get(id).toDict()
-    return jsonify(response)
+    response = session.query(Visitor).get(id).toDict()
+    return JSONResponse(content=response)
