@@ -49,7 +49,7 @@ def ask_AI():
     response = requests.post('http://140.119.19.21:5001/api/generate', json=query.json)
     create_interaction(interaction.json)
     
-    return response.json()
+    return response.json().get('response')
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000, debug=True)
