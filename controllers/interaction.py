@@ -1,9 +1,10 @@
-from flask import Blueprint, request
+from fastapi import APIRouter
+from flask import request
 from services.interaction import create_interaction, get_interaction_count, get_interaction_duration 
 
-interaction_blueprint = Blueprint('interaction_blueprint', __name__)
+interaction_router = APIRouter(prefix='/interaction', tags=['interaction'])
    
-@interaction_blueprint.route('/add', methods=['POST'])
+@interaction_router.post('/add')
 def add_interaction_controller():
     data = request.json
     interaction = {
@@ -15,10 +16,10 @@ def add_interaction_controller():
     
     return create_interaction(interaction)
 
-@interaction_blueprint.route('/count/<visitorID>', methods=['GET'])
+@interaction_router.get('/count/<visitorID>')
 def get_interaction_count_controller(visitorID):
     return get_interaction_count(visitorID)
 
-@interaction_blueprint.route('/duration/<visitorID>', methods=['GET'])
+@interaction_router.get('/duration/<visitorID>')
 def get_interaction_duration_controller(visitorID):
     return get_interaction_duration(visitorID)

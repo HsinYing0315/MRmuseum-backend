@@ -1,13 +1,13 @@
-from flask import Blueprint
+from fastapi import APIRouter
 from services.test.test import list_all_tests, get_test
 
-test_blueprint = Blueprint('test_blueprint', __name__)
+test_router = APIRouter(prefix='/test', tags=['test'])
 
-@test_blueprint.route('/', methods=['GET'])
+@test_router.get('/')
 def list_all_tests_controller():
     
     return list_all_tests()
 
-@test_blueprint.route('/<test_id>', methods=['GET'])
+@test_router.get('/<test_id>')
 def get_test_controller(test_id):
     return get_test(test_id)

@@ -1,9 +1,9 @@
-from flask import Blueprint
+from fastapi import APIRouter
 from services.exhibit.time import get_time
 
-time_blueprint = Blueprint('time_blueprint', __name__)
+time_router = APIRouter(prefix='/time', tags=['time'])
 
-@time_blueprint.route('/<area_id>/<name>', methods=['GET'])
+@time_router.get('/<area_id>/<name>')
 def get_time_controller(area_id, name):
     
     return get_time(area_id, name)

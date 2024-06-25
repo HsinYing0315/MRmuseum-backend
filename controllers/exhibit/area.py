@@ -1,8 +1,8 @@
-from flask import Blueprint
+from fastapi import APIRouter
 from services.exhibit.area import get_area
 
-area_blueprint = Blueprint('area_blueprint', __name__)
+area_router = APIRouter(prefix='/area', tags=['area'])
 
-@area_blueprint.route('/<name>', methods=['GET'])
+@area_router.get('/<name>')
 def get_area_controller(name):
     return get_area(name)
