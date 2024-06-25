@@ -1,4 +1,5 @@
 from sqlalchemy import Column, String, DateTime, inspect
+from sqlalchemy.orm import relationship
 from datetime import datetime
 
 from models.test.answer import Answer
@@ -6,6 +7,7 @@ from database import Base
 
 # SQL Datatype Objects => https://docs.sqlalchemy.org/en/14/core/types.html
 class Test(Base):
+    __tablename__ = 'test'
 # Auto Generated Fields:
     id           = Column(String(50), primary_key=True, nullable=False, unique=True)
     created      = Column(DateTime(timezone=True), default=datetime.now)                           # The Date of the Instance Creation => Created one Time when Instantiation

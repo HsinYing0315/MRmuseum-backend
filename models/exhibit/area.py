@@ -1,4 +1,5 @@
-from sqlalchemy import Column, String, DateTime, relationship, inspect
+from sqlalchemy import Column, String, DateTime, inspect
+from sqlalchemy.orm import relationship
 from datetime import datetime
 
 from database import Base
@@ -6,6 +7,7 @@ from models.exhibit.time import Time
 
 # SQL Datatype Objects => https://docs.sqlalchemy.org/en/14/core/types.html
 class Area(Base):
+    __tablename__ = "area"
 # Auto Generated Fields:
     id           = Column(String(50), primary_key=True, nullable=False, unique=True)
     created      = Column(DateTime(timezone=True), default=datetime.now)                           # The Date of the Instance Creation => Created one Time when Instantiation
