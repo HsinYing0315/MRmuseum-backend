@@ -1,7 +1,7 @@
-from flask import request, jsonify
+from fastapi.responses import JSONResponse
 import uuid
 
-from __init__ import db
+from database import session
 from models.visitor import Visitor
 
 def create_visitor():
@@ -14,8 +14,8 @@ def create_visitor():
                           count       = data.get('count'),
                           type        = data.get('type'),
                           )
-    db.session.add(new_visitor)
-    db.session.commit()
+    session.add(new_visitor)
+    session.commit()
 
     response = Visitor.query.get(id).toDict()
-    return jsonify(response)
+    return JSONResponse(content=response)

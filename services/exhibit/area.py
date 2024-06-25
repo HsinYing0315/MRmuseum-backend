@@ -1,15 +1,14 @@
-from flask import jsonify
-
+from fastapi.responses import JSONResponse
 from models.exhibit.area import Area
 
 def get_area(name):
     if (Area.query.filter_by(name=name).first() is None):
-        return jsonify({})
+        return JSONResponse(status_code=404, content={"message": "Area with name " + name + " is not found"})
     response = Area.query.filter_by(name=name).first().toDict()
     
-    area = jsonify({
+    area = {
         'name': response['name'],
         'introduction': response['introduction'],
-    })
+    }
 
-    return area
+    return JSONResponse(status_code=200, content=area)

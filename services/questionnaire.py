@@ -1,7 +1,7 @@
-from flask import jsonify, request
+from fastapi.responses import JSONResponse
 import uuid
 from models.questionnaire import Questionnaire
-from __init__ import db
+from database import session
 
 def create_Questionnaire():
     data = request.json
@@ -15,8 +15,8 @@ def create_Questionnaire():
                           willVisitAgain      = data['willVisitAgain'],
                           visitorID       = data['visitorID'],
                           )
-    db.session.add(new_interaction)
-    db.session.commit()
+    session.add(new_interaction)
+    session.commit()
 
     response = Questionnaire.query.get(id).toDict()
-    return jsonify(response)
+    return JSONResponse(content=response)
