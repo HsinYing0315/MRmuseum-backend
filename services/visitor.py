@@ -17,5 +17,5 @@ def create_visitor():
     session.add(new_visitor)
     session.commit()
 
-    response = Visitor.query.get(id).toDict()
+    response = session.query(Visitor).get(id).toDict()
     return JSONResponse(content=response)

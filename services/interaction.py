@@ -17,15 +17,15 @@ def create_interaction(interaction):
     session.add(new_interaction)
     session.commit()
 
-    response = Interaction.query.get(id).toDict()
+    response = session.query(Interaction).get(id).toDict()
     return JSONResponse(content=response)
 
 def get_interaction_count(visitorID):
-    interactions = Interaction.query.filter_by(visitorID=visitorID).all()
+    interactions = session.query(Interaction).filter_by(visitorID=visitorID).all()
     return len(interactions)
 
 def get_interaction_duration(visitorID):
-    interactions = Interaction.query.filter_by(visitorID=visitorID, type='duration').all()
+    interactions = session.query(Interaction).filter_by(visitorID=visitorID, type='duration').all()
     if (interactions is None):
         return 0
     total = 0

@@ -18,5 +18,5 @@ def create_Questionnaire():
     session.add(new_interaction)
     session.commit()
 
-    response = Questionnaire.query.get(id).toDict()
+    response = session.query(Questionnaire).get(id).toDict()
     return JSONResponse(content=response)
