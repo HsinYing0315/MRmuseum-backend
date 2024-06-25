@@ -8,6 +8,6 @@ def list_all_answers_controller():
     
     return list_all_answers()
 
-@answer_router.get('/<answer_id>')
+@answer_router.get('/{answer_id}')
 def get_answer_controller(answer_id):
     return get_answer(answer_id)

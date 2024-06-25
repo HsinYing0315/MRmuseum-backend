@@ -16,10 +16,10 @@ def add_interaction_controller():
     
     return create_interaction(interaction)
 
-@interaction_router.get('/count/<visitorID>')
+@interaction_router.get('/count/{visitorID}')
 def get_interaction_count_controller(visitorID):
     return get_interaction_count(visitorID)
 
-@interaction_router.get('/duration/<visitorID>')
+@interaction_router.get('/duration/{visitorID}')
 def get_interaction_duration_controller(visitorID):
     return get_interaction_duration(visitorID)

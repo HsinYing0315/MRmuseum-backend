@@ -8,6 +8,6 @@ def list_all_tests_controller():
     
     return list_all_tests()
 
-@test_router.get('/<test_id>')
+@test_router.get('/{test_id}')
 def get_test_controller(test_id):
     return get_test(test_id)

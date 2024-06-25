@@ -8,6 +8,6 @@ def list_all_exhibitGroups_controller():
     
     return list_all_exhibitGroups()
 
-@exhibitGroup_router.get('/<exhibitGroup_id>')
+@exhibitGroup_router.get('/{exhibitGroup_id}')
 def get_exhibitGroup_controller(exhibitGroup_id):
     return get_exhibitGroup(exhibitGroup_id)
