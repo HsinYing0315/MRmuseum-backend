@@ -1,7 +1,7 @@
 import requests
 import uvicorn
+from pydantic import BaseModel
 from fastapi.responses import JSONResponse
-from flask import request
 
 from __init__ import create_app
 from services.interaction import create_interaction
@@ -20,36 +20,46 @@ app.include_router(exhibit_router)
 app.include_router(interaction_router)
 app.include_router(questionnaire_router)
 
-@app.route('/')
-def index(self):
+@app.get('/')
+def index():
     return JSONResponse(content='Hello, World!')
 
-@app.route('/translate')
-def translate():
-    data = request.json
-    response = requests.post('http://140.119.19.21:5001/api/translate', json=data)
+class TranslateRequest(BaseModel):
+    query: str
+    lang: str
+@app.post('/translate')
+def translate(translateRequest: TranslateRequest):
+    request = {
+        'text': translateRequest.query,
+        'target_language': translateRequest.lang
+    }
+    response = requests.post('http://140.119.19.21:5001/api/translate', json=request)
 
     return JSONResponse(content=response.json())
 
-@app.route('/AI')
-def ask_AI():
-    data = request.json
-    if ('-' in data['lang']):
-        data['lang'] = data['lang'].replace('-', '_')
+class GenerateRequest(BaseModel):
+    query: str
+    lang: str
+    visitorID: str
+    exhibitID: str
+@app.post('/AI')
+def ask_AI(generateRequest: GenerateRequest):
+    if ('-' in generateRequest.lang):
+        generateRequest.lang = generateRequest.lang.replace('-', '_')
         
     query = {
-        'query': data['query'],
-        'lang': data['lang']
+        'query': generateRequest.query,
+        'lang': generateRequest.lang
     }
     interaction = {
         'type': 'question',
-        'content': data['query'],
-        'visitorID': data['visitorID'],
-        'exhibitID': data['exhibitID']
+        'content': generateRequest.query,
+        'visitorID': generateRequest.visitorID,
+        'exhibitID': generateRequest.exhibitID
     }
         
-    response = requests.post('http://140.119.19.21:5001/api/generate', json=query.json)
-    create_interaction(interaction.json)
+    response = requests.post('http://140.119.19.21:5001/api/generate', json=query)
+    create_interaction(interaction)
     
     return JSONResponse(content=response.json().get('response'))
     

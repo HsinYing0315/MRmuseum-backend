@@ -17,8 +17,7 @@ def create_interaction(interaction):
     session.add(new_interaction)
     session.commit()
 
-    response = session.query(Interaction).get(id).toDict()
-    return JSONResponse(content=response)
+    return JSONResponse(content="interaction recorded")
 
 def get_interaction_count(visitorID):
     interactions = session.query(Interaction).filter_by(visitorID=visitorID).all()
@@ -27,7 +26,7 @@ def get_interaction_count(visitorID):
 def get_interaction_duration(visitorID):
     interactions = session.query(Interaction).filter_by(visitorID=visitorID, type='duration').all()
     
-    if (len(interactions) is 0):
+    if (len(interactions) == 0):
         return 0
     total = 0
     for interaction in interactions:
