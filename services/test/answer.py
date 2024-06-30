@@ -5,7 +5,11 @@ from models.test.answer import Answer
 def list_all_answers():
     answers = session.query(Answer).all()
     response = []
-    for answer in answers: response.append(answer.toDict())
+    for answer in answers: 
+        answer = answer.toDict()
+        answer['created'] = answer['created'].strftime("%Y-%m-%d %H:%M:%S")
+        answer['updated'] = answer['updated'].strftime("%Y-%m-%d %H:%M:%S")
+        response.append(answer)
     return JSONResponse(content=response)
  
 def get_answer(answer_id):

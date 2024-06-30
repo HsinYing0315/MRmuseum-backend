@@ -6,7 +6,11 @@ def list_all_exhibits_by_time(time_id):
     if (exhibits is None):
         return JSONResponse(status_code=404, content={"message": "Exhibits with time " + time_id + " is not found"})
     response = []
-    for exhibit in exhibits: response.append(exhibit.toDict())
+    for exhibit in exhibits: 
+        exhibit = exhibit.toDict()
+        exhibit['created'] = exhibit['created'].strftime("%Y-%m-%d %H:%M:%S")
+        exhibit['updated'] = exhibit['updated'].strftime("%Y-%m-%d %H:%M:%S")
+        response.append(exhibit)
     return JSONResponse(content=response)
 
 

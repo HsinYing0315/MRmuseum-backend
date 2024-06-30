@@ -5,7 +5,11 @@ from models.test.test import Test
 def list_all_tests():
     tests = session.query(Test).all()
     response = []
-    for test in tests: response.append(test.toDict())
+    for test in tests: 
+        test = test.toDict()
+        test['created'] = test['created'].strftime("%Y-%m-%d %H:%M:%S")
+        test['updated'] = test['updated'].strftime("%Y-%m-%d %H:%M:%S")
+        response.append(test)
     return JSONResponse(content=response)
  
 def get_test(test_id):
