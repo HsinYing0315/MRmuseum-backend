@@ -13,4 +13,6 @@ def get_test(test_id):
         return JSONResponse(status_code=404, content={"message": "Test with id " + test_id + " is not found"})
     
     response = session.query(Test).get(test_id).toDict()
+    response['created'] = response['created'].strftime("%Y-%m-%d %H:%M:%S")  
+    response['updated'] = response['updated'].strftime("%Y-%m-%d %H:%M:%S")
     return JSONResponse(content=response)
