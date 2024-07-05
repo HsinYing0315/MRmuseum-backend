@@ -1,7 +1,7 @@
 from fastapi.responses import JSONResponse
 import uuid
 
-from database import session
+from database import Session
 from models.interaction import Interaction
 
 def create_interaction(interaction):
@@ -14,17 +14,21 @@ def create_interaction(interaction):
                           visitorID       = interaction['visitorID'],
                           exhibitID       = interaction['exhibitID'],
                           )
-    session.add(new_interaction)
-    session.commit()
+    
+    with Session() as session:
+        session.add(new_interaction)
+        session.commit()
 
     return JSONResponse(content="interaction recorded")
 
 def get_interaction_count(visitorID):
-    interactions = session.query(Interaction).filter_by(visitorID=visitorID).all()
+    with Session() as session:
+        interactions = session.query(Interaction).filter_by(visitorID=visitorID).all()
     return len(interactions)
 
 def get_interaction_duration(visitorID):
-    interactions = session.query(Interaction).filter_by(visitorID=visitorID, type='duration').all()
+    with Session() as session:
+        interactions = session.query(Interaction).filter_by(visitorID=visitorID, type='duration').all()
     
     if (len(interactions) == 0):
         return 0

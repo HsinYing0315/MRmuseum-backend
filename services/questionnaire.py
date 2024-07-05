@@ -2,7 +2,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import uuid
 from models.questionnaire import Questionnaire
-from database import session
+from database import Session
 
 class QuestionnaireSchema(BaseModel):
     interactionScore: int
@@ -22,7 +22,9 @@ def create_Questionnaire(questionnaire: QuestionnaireSchema):
                           willVisitAgain      = questionnaire.willVisitAgain,
                           visitorID       = questionnaire.visitorID,
                           )
-    session.add(new_interaction)
-    session.commit()
+    
+    with Session() as session:
+        session.add(new_interaction)
+        session.commit()
 
     return JSONResponse(content="Questionnaire recorded")

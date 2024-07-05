@@ -2,7 +2,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import uuid
 
-from database import session
+from database import Session
 from models.visitor import Visitor
 
 class VisitorSchema(BaseModel):
@@ -17,7 +17,8 @@ def create_visitor(visitor: VisitorSchema):
                           count       = visitor.count,
                           type        = visitor.type,
                           )
-    session.add(new_visitor)
-    session.commit()
+    with Session() as session:
+        session.add(new_visitor)
+        session.commit()
 
     return JSONResponse(content={"id": id})
