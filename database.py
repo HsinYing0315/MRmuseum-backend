@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import os
 from dotenv import load_dotenv
+from contextlib import contextmanager
 
 load_dotenv()
 
@@ -11,4 +12,12 @@ engine = create_engine(DATABASE_URL)
 Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 session = Session()
+
+@contextmanager
+def commit():
+    try:
+        session.commit()
+    except:
+        session.rollback()
+        
 Base = declarative_base()
