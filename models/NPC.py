@@ -13,7 +13,7 @@ class NPC(Base):
 
 # Input by User Fields:
     name        = Column(String(100), nullable=False)
-    introduction    = Column(String(100), nullable=False)
+    introduction    = Column(String(500), nullable=False)
     exhibitID       = Column(String(50), ForeignKey("exhibit.id"), nullable=False)
 
 # How to serialize SqlAlchemy PostgreSQL Query to JSON => https://stackoverflow.com/a/46180522

@@ -14,7 +14,7 @@ class Test(Base):
     updated      = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)    # The Date of the Instance Update => Changed with Every Update
 
 # Input by User Fields:
-    question = Column(String(100), nullable=False)
+    question = Column(String(500), nullable=False)
     
     answers = relationship(Answer.__name__, backref='test')
 
