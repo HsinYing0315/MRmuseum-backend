@@ -16,7 +16,7 @@ class Area(Base):
 # Input by User Fields:
     name        = Column(String(100), nullable=False)
     location     = Column(String(100), nullable=False)
-    introduction = Column(String(100), nullable=True)
+    introduction = Column(String(3000), nullable=True)
 
     times        = relationship(Time.__name__, backref='area')
 # How to serialize SqlAlchemy PostgreSQL Query to JSON => https://stackoverflow.com/a/46180522

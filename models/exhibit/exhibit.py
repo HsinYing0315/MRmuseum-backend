@@ -15,7 +15,7 @@ class Exhibit(Base):
 
 # Input by User Fields:
     name        = Column(String(100), nullable=False)
-    introduction = Column(String(100), nullable=True)
+    introduction = Column(String(500), nullable=True)
     number       = Column(String(100), nullable=False)
     timeID       = Column(String(50), ForeignKey("time.id"), nullable=True)
     exhibitGroupID = Column(String(50), ForeignKey("exhibit_group.id"), nullable=True)

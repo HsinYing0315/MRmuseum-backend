@@ -18,7 +18,7 @@ class Time(Base):
 # Input by User Fields:
     name        = Column(String(100), nullable=False)
     location     = Column(String(100), nullable=False)
-    introduction = Column(String(100), nullable=True)
+    introduction = Column(String(3000), nullable=True)
     areaID       = Column(String(50), ForeignKey("area.id"), nullable=False)
 
     exhibitGroups = relationship(ExhibitGroup.__name__, backref='time')
