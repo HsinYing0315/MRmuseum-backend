@@ -17,7 +17,8 @@ session = Session()
 def commit():
     try:
         session.commit()
-    except:
+    except Exception as e:
         session.rollback()
+        raise e
         
 Base = declarative_base()
