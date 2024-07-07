@@ -16,6 +16,7 @@ session = Session()
 @contextmanager
 def commit():
     try:
+        yield
         session.commit()
     except Exception as e:
         session.rollback()
