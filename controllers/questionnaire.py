@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Response, BackgroundTasks
 from fastapi.responses import JSONResponse
-from services.questionnaire import create_Questionnaire, get_average_score, QuestionnaireSchema
+from services.questionnaire import create_Questionnaire, get_overall_score, get_average_score, QuestionnaireSchema
 
 questionnaire_router = APIRouter(prefix='/questionnaire', tags=['questionnaire'])
 
@@ -8,6 +8,11 @@ questionnaire_router = APIRouter(prefix='/questionnaire', tags=['questionnaire']
 def add_questionnaire_controller(questionnaire: QuestionnaireSchema):
     
     return create_Questionnaire(questionnaire)
+
+@questionnaire_router.get('/overall')
+def get_overall_score_controller():
+    
+    return get_overall_score()
 
 @questionnaire_router.get('/average')
 def get_average_score_controller(background_tasks: BackgroundTasks):

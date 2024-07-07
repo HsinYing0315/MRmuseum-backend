@@ -31,6 +31,13 @@ def create_Questionnaire(questionnaire: QuestionnaireSchema):
 
     return JSONResponse(content="Questionnaire recorded")
 
+def get_overall_score():
+    if (len(session.query(Questionnaire).all()) == 0): return None
+    total = len(session.query(Questionnaire).all())
+    overalls = 0
+    for score in session.query(Questionnaire.overallScore).all(): overalls += score[0]
+    return JSONResponse(content={'average overall score': str((overalls / total) * 20) + '%'})
+
 def get_average_score():
     if (len(session.query(Questionnaire).all()) == 0): return None
     total = len(session.query(Questionnaire).all())
