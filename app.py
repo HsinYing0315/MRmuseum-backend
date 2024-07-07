@@ -9,6 +9,7 @@ from controllers.visitor import visitor_router
 from controllers.exhibit.area import area_router
 from controllers.exhibit.time import time_router
 from controllers.exhibit.exhibit import exhibit_router
+from controllers.NPC import NPC_router
 from controllers.interaction import interaction_router
 from controllers.questionnaire import questionnaire_router
 
@@ -17,6 +18,7 @@ app.include_router(visitor_router)
 app.include_router(area_router)
 app.include_router(time_router)
 app.include_router(exhibit_router)
+app.include_router(NPC_router)
 app.include_router(interaction_router)
 app.include_router(questionnaire_router)
 
