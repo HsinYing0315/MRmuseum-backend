@@ -12,11 +12,11 @@ class Questionnaire(Base):
     updated      = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)    # The Date of the Instance Update => Changed with Every Update
 
 # Input by User Fields:
-    interactionScore    = Column(Integer, nullable=True)
-    educationScore      = Column(Integer, nullable=True)
-    entertainmentScore  = Column(Integer, nullable=True)
-    overallScore        = Column(Integer, nullable=True)
-    willVisitAgain      = Column(Boolean, nullable=True)
+    interactionScore    = Column(Integer, nullable=False)
+    educationScore      = Column(Integer, nullable=False)
+    entertainmentScore  = Column(Integer, nullable=False)
+    overallScore        = Column(Integer, nullable=False)
+    willVisitAgain      = Column(Boolean, nullable=False)
     visitorID = Column(String(50), ForeignKey("visitor.id"), nullable=False)
 
 # How to serialize SqlAlchemy PostgreSQL Query to JSON => https://stackoverflow.com/a/46180522
