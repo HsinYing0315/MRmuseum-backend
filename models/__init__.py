@@ -7,4 +7,3 @@ from models.test.test import Test
 from models.test.answer import Answer
 from models.interaction import Interaction
 from models.questionnaire import Questionnaire
-from models.NPC import NPC

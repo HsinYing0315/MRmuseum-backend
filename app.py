@@ -9,7 +9,6 @@ from controllers.visitor import visitor_router
 from controllers.exhibit.area import area_router
 from controllers.exhibit.time import time_router
 from controllers.exhibit.exhibit import exhibit_router
-from controllers.NPC import NPC_router
 from controllers.interaction import interaction_router
 from controllers.questionnaire import questionnaire_router
 
@@ -18,7 +17,6 @@ app.include_router(visitor_router)
 app.include_router(area_router)
 app.include_router(time_router)
 app.include_router(exhibit_router)
-app.include_router(NPC_router)
 app.include_router(interaction_router)
 app.include_router(questionnaire_router)
 
@@ -62,6 +60,22 @@ def ask_AI(generateRequest: GenerateRequest):
         
     response = requests.post('http://140.119.19.21:5001/api/generate', json=query)
     create_interaction(interaction)
+    
+    return JSONResponse(content=response.json().get('response'))
+
+class NPCRequest(BaseModel):
+    query: str
+    lang: str
+    npc_role: str
+@app.post('/NPC')
+def interact_NPC_controller(NPCrequest: NPCRequest):
+    request = {
+        'query': NPCrequest.query,
+        'lang': NPCrequest.lang,
+        'npc_role': NPCrequest.npc_role
+    }
+    
+    response = requests.post('http://140.119.19.21:5001/api/npc/ask', json=request)
     
     return JSONResponse(content=response.json().get('response'))
     
