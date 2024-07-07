@@ -11,8 +11,7 @@ def create_interaction(interaction):
                           id             = id,
                           type            = interaction['type'],
                           content        = interaction['content'],
-                          visitorID       = interaction['visitorID'],
-                          exhibitID       = interaction['exhibitID'],
+                          visitorID       = interaction['visitorID']
                           )
     
     with commit():
