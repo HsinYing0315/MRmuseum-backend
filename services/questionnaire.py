@@ -33,6 +33,7 @@ def create_Questionnaire(questionnaire: QuestionnaireSchema):
 
 def get_average_score():
     if (len(session.query(Questionnaire).all()) == 0): return None
+    total = len(session.query(Questionnaire).all())
     interactions = 0
     educations = 0
     entertainments = 0
@@ -43,7 +44,7 @@ def get_average_score():
     for score in session.query(Questionnaire.entertainmentScore).all(): entertainments += score[0]
     for score in session.query(Questionnaire.overallScore).all(): overalls += score[0]
     
-    plt.bar(['Interaction', 'Education', 'Entertainment', 'Overall'], [interactions, educations, entertainments, overalls])
+    plt.bar(['Interaction', 'Education', 'Entertainment', 'Overall'], [interactions / total, educations / total, entertainments / total, overalls / total])
     
     buffer = BytesIO()
     plt.savefig(buffer, format='png')
