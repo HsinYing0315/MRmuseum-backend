@@ -19,6 +19,8 @@ class Visitor(Base):
     age        = Column(Integer, nullable=False)
     count     = Column(String(100), nullable=False)
     type      = Column(String(100), nullable=False)
+    interests  = Column(String(100), nullable=False)
+    gender    = Column(String(100), nullable=False)
     
     interactions  = relationship(Interaction.__name__, backref='visitor')
     answers       = relationship(Answer.__name__, backref='visitor')
