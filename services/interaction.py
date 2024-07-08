@@ -19,18 +19,6 @@ def create_interaction(interaction):
 
     return JSONResponse(content="interaction recorded")
 
-def create_duration(interaction):
-    id = str(uuid.uuid4())
-    new_interaction = Interaction(
-                          id             = id,
-                          type            = "duration",
-                          content        = interaction['content'],
-                          visitorID       = interaction['visitorID']
-                          )
-    
-    with commit():
-        session.add(new_interaction)    
-
 def get_interaction_count(visitorID):
     interactions = session.query(Interaction).filter_by(visitorID=visitorID).all()
     return len(interactions)

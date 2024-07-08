@@ -1,32 +1,42 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from services.interaction import create_interaction, create_duration, get_interaction_count, get_interaction_duration 
+from services.interaction import create_interaction, get_interaction_count, get_interaction_duration 
 
 interaction_router = APIRouter(prefix='/interaction', tags=['interaction'])
    
 class Interaction(BaseModel):
-    type: str
     content: str
     visitorID: str
-@interaction_router.post('/add')
+@interaction_router.post('/AI/add')
 def add_interaction_controller(interaction: Interaction):
     interaction = {
-        'type': interaction.type,
+        'type': 'AI assistant',
         'content': interaction.content,
         'visitorID': interaction.visitorID
     }
     
     return create_interaction(interaction)
 
-@interaction_router.post('/duration/add')
-def add_duration_controller(interaction):
+@interaction_router.post('/NPC/add')
+def add_duration_controller(interaction: Interaction):
     interaction = {
-        'type': 'duration',
-        'content': interaction['content'],
-        'visitorID': interaction['visitorID']
+        'type': 'NPC',
+        'content': interaction.content,
+        'visitorID': interaction.visitorID
     }
     
-    return create_duration(interaction)
+    return create_interaction(interaction)
+
+
+@interaction_router.post('/duration/add')
+def add_duration_controller(interaction: Interaction):
+    interaction = {
+        'type': 'duration',
+        'content': interaction.content,
+        'visitorID': interaction.visitorID
+    }
+    
+    return create_interaction(interaction)
 
 @interaction_router.get('/count/{visitorID}')
 def get_interaction_count_controller(visitorID):
