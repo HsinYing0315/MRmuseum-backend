@@ -15,6 +15,7 @@ class Interaction(Base):
     type            = Column(String(100), nullable=False)
     content        = Column(VARCHAR(1000), nullable=False)
     visitorID       = Column(String(50), ForeignKey("visitor.id"), nullable=False)
+    exhibitID = Column(String(50), ForeignKey("exhibit.id"), nullable=True)
 
 # How to serialize SqlAlchemy PostgreSQL Query to JSON => https://stackoverflow.com/a/46180522
     def toDict(self):

@@ -19,6 +19,23 @@ def create_interaction(interaction):
 
     return JSONResponse(content="interaction recorded")
 
+def create_interaction_with_exhibit(interaction):
+    
+    id = str(uuid.uuid4())
+    new_interaction = Interaction(
+                          id             = id,
+                          type            = interaction['type'],
+                          content        = interaction['content'],
+                          visitorID       = interaction['visitorID'],
+                          exhibitID       = interaction['exhibitID']
+                          )
+    
+    with commit():
+        session.add(new_interaction)
+
+    return JSONResponse(content="interaction recorded")
+
+
 def get_interaction_count(visitorID):
     interactions = session.query(Interaction).filter_by(visitorID=visitorID).all()
     return len(interactions)
