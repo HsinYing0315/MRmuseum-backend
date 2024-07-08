@@ -40,8 +40,6 @@ def translate(translateRequest: TranslateRequest):
 class GenerateRequest(BaseModel):
     query: str
     lang: str
-    visitorID: str
-    exhibitID: str
 @app.post('/AI')
 def ask_AI(generateRequest: GenerateRequest):
     if ('-' in generateRequest.lang):
@@ -51,15 +49,8 @@ def ask_AI(generateRequest: GenerateRequest):
         'query': generateRequest.query,
         'lang': generateRequest.lang
     }
-    interaction = {
-        'type': 'question',
-        'content': generateRequest.query,
-        'visitorID': generateRequest.visitorID,
-        'exhibitID': generateRequest.exhibitID
-    }
         
     response = requests.post('http://140.119.19.21:5001/api/generate', json=query)
-    create_interaction(interaction)
     
     return JSONResponse(content=response.json().get('response'))
 

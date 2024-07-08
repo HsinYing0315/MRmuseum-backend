@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from services.interaction import create_interaction, get_interaction_count, get_interaction_duration 
+from services.interaction import create_interaction, create_duration, get_interaction_count, get_interaction_duration 
 
 interaction_router = APIRouter(prefix='/interaction', tags=['interaction'])
    
@@ -17,6 +17,16 @@ def add_interaction_controller(interaction: Interaction):
     }
     
     return create_interaction(interaction)
+
+@interaction_router.post('/duration/add')
+def add_duration_controller(interaction):
+    interaction = {
+        'type': 'duration',
+        'content': interaction['content'],
+        'visitorID': interaction['visitorID']
+    }
+    
+    return create_duration(interaction)
 
 @interaction_router.get('/count/{visitorID}')
 def get_interaction_count_controller(visitorID):
