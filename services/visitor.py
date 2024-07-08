@@ -9,6 +9,8 @@ class VisitorSchema(BaseModel):
     age: int
     count: str
     type: str
+    interests: str
+    gender: str
 def create_visitor(visitor: VisitorSchema):
     id = str(uuid.uuid4())
     new_visitor = Visitor(
@@ -16,6 +18,8 @@ def create_visitor(visitor: VisitorSchema):
                           age          = visitor.age,
                           count       = visitor.count,
                           type        = visitor.type,
+                          interests   = visitor.interests,
+                          gender      = visitor.gender
                           )
     with commit():
         session.add(new_visitor)
