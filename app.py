@@ -4,7 +4,6 @@ from pydantic import BaseModel
 from fastapi.responses import JSONResponse
 
 from __init__ import create_app
-from services.interaction import create_interaction
 from controllers.visitor import visitor_router
 from controllers.exhibit.area import area_router
 from controllers.exhibit.time import time_router
@@ -22,7 +21,7 @@ app.include_router(questionnaire_router)
 
 @app.get('/')
 def index():
-    return JSONResponse(content='Hello, World!')
+    return JSONResponse(content={'message': 'Hello World'})
 
 class TranslateRequest(BaseModel):
     query: str

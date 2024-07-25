@@ -15,12 +15,13 @@ def list_all_exhibits_by_time(time_id):
 
 
 def get_exhibit(exhibit_id):
-    response = session.query(Exhibit).get(exhibit_id).toDict()
+    response = session.query(Exhibit).get(exhibit_id)
     
     if (response is None):
         return JSONResponse(status_code=404, content={"message": "Exhibit with id " + exhibit_id + " is not found"})
     
-    response['created'] = response['created'].strftime("%Y-%m-%d %H:%M:%S")
-    response['updated'] = response['updated'].strftime("%Y-%m-%d %H:%M:%S")
+    exhibit = response.toDict()
+    exhibit['created'] = exhibit['created'].strftime("%Y-%m-%d %H:%M:%S")
+    exhibit['updated'] = exhibit['updated'].strftime("%Y-%m-%d %H:%M:%S")
     
-    return JSONResponse(content=response)
+    return JSONResponse(content=exhibit)

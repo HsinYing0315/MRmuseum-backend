@@ -15,6 +15,16 @@ def get_visitors():
         response.append(visitor)
     return JSONResponse(content=response)
 
+def get_visitor(id: str):
+    response = session.query(Visitor).get(id)
+    if (response is None):
+        return JSONResponse(status_code=404, content={"message": "Visitor with id " + id + " is not found"})
+    
+    visitor = response.toDict()
+    visitor['created'] = visitor['created'].strftime("%Y-%m-%d %H:%M:%S")
+    visitor['updated'] = visitor['updated'].strftime("%Y-%m-%d %H:%M:%S")
+    return JSONResponse(content=visitor)
+
 class VisitorSchema(BaseModel):
     age: int
     count: str
