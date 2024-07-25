@@ -18,6 +18,8 @@ def get_visitors():
         visitor['interaction'] = []
         for interaction in interactions:
             interaction = interaction.toDict()
+            interaction['created'] = interaction['created'].strftime("%Y-%m-%d %H:%M:%S")
+            interaction['updated'] = interaction['updated'].strftime("%Y-%m-%d %H:%M:%S")
             visitor['interaction'].append(interaction)
             
         visitor['questionnaire'] = questionnaire
@@ -36,6 +38,8 @@ def get_visitor(id: str):
     visitor['interaction'] = []
     for interaction in interactions:
         interaction = interaction.toDict()
+        interaction['created'] = interaction['created'].strftime("%Y-%m-%d %H:%M:%S")
+        interaction['updated'] = interaction['updated'].strftime("%Y-%m-%d %H:%M:%S")
         visitor['interaction'].append(interaction)
         
     visitor['questionnaire'] = questionnaire
