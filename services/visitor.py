@@ -14,7 +14,9 @@ def get_visitors():
         
         interactions = session.query(Interaction).filter_by(visitorID=visitor['id']).all()
         questionnaire = session.query(Questionnaire).filter_by(visitorID=visitor['id']).first()
-        visitor['interaction'] = interactions
+        for interaction in interactions:
+            interaction = interaction.toDict()
+            visitor['interaction'].append(interaction)
         visitor['questionnaire'] = questionnaire
         response.append(visitor)
     return JSONResponse(content=response)
@@ -28,7 +30,9 @@ def get_visitor(id: str):
     questionnaire = session.query(Questionnaire).filter_by(visitorID=id).first()
    
     visitor = response.toDict()
-    visitor['interaction'] = interactions
+    for interaction in interactions:
+        interaction = interaction.toDict()
+        visitor['interaction'].append(interaction)
     visitor['questionnaire'] = questionnaire
     visitor['created'] = visitor['created'].strftime("%Y-%m-%d %H:%M:%S")
     visitor['updated'] = visitor['updated'].strftime("%Y-%m-%d %H:%M:%S")
