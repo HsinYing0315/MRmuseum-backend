@@ -13,7 +13,7 @@ def get_visitors():
         visitor = visitor.toDict()
         
         interactions = session.query(Interaction).filter_by(visitorID=visitor['id']).all()
-        questionnaire = session.query(Questionnaire).filter_by(visitorID=visitor['id']).first()
+        questionnaire = session.query(Questionnaire).filter_by(visitorID=visitor['id']).first().toDict()
         
         visitor['interaction'] = []
         for interaction in interactions:
@@ -22,6 +22,8 @@ def get_visitors():
             interaction['updated'] = interaction['updated'].strftime("%Y-%m-%d %H:%M:%S")
             visitor['interaction'].append(interaction)
             
+        questionnaire['created'] = questionnaire['created'].strftime("%Y-%m-%d %H:%M:%S")
+        questionnaire['updated'] = questionnaire['updated'].strftime("%Y-%m-%d %H:%M:%S")
         visitor['questionnaire'] = questionnaire
         response.append(visitor)
     return JSONResponse(content=response)
@@ -32,7 +34,7 @@ def get_visitor(id: str):
         return JSONResponse(status_code=404, content={"message": "Visitor with id " + id + " is not found"})
     
     interactions = session.query(Interaction).filter_by(visitorID=id).all()
-    questionnaire = session.query(Questionnaire).filter_by(visitorID=id).first()
+    questionnaire = session.query(Questionnaire).filter_by(visitorID=id).first().toDict()
    
     visitor = response.toDict()
     visitor['interaction'] = []
@@ -42,6 +44,8 @@ def get_visitor(id: str):
         interaction['updated'] = interaction['updated'].strftime("%Y-%m-%d %H:%M:%S")
         visitor['interaction'].append(interaction)
         
+    questionnaire['created'] = questionnaire['created'].strftime("%Y-%m-%d %H:%M:%S")
+    questionnaire['updated'] = questionnaire['updated'].strftime("%Y-%m-%d %H:%M:%S")
     visitor['questionnaire'] = questionnaire
     visitor['created'] = visitor['created'].strftime("%Y-%m-%d %H:%M:%S")
     visitor['updated'] = visitor['updated'].strftime("%Y-%m-%d %H:%M:%S")
