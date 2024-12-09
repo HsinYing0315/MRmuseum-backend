@@ -46,7 +46,8 @@ def ask_AI(generateRequest: GenerateRequest):
         
     query = {
         'query': generateRequest.query,
-        'lang': generateRequest.lang
+        'lang': generateRequest.lang,
+        'is_rag': True
     }
         
     response = requests.post('http://140.119.19.21:5001/api/generate', json=query)
