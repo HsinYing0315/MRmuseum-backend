@@ -58,12 +58,17 @@ class NPCRequest(BaseModel):
     query: str
     lang: str
     npc_role: str
+    personality: str
+    is_rag: bool
+
 @app.post('/NPC')
 def interact_NPC_controller(NPCrequest: NPCRequest):
     request = {
         'query': NPCrequest.query,
         'lang': NPCrequest.lang,
-        'npc_role': NPCrequest.npc_role
+        'npc_role': NPCrequest.npc_role,
+        'personality': NPCrequest.personality,
+        'is_rag': NPCrequest.is_rag
     }
     
     response = requests.post('http://140.119.19.21:5001/api/npc/ask', json=request)
